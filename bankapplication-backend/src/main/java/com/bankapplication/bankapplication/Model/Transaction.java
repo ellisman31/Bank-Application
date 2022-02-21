@@ -1,12 +1,13 @@
 package com.bankapplication.bankapplication.Model;
 
+import com.bankapplication.bankapplication.Types.TransactionTypes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.*;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class Transaction {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    private String transActionType;
-    private double transActionMoney;
+    private TransactionTypes transActionType;
+    private BigDecimal money;
 
 }
