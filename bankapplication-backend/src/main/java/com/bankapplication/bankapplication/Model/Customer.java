@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +17,7 @@ import javax.persistence.Table;
 public class Customer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String lastName;
@@ -26,6 +26,9 @@ public class Customer {
     private String password;
 
     private double balance;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions;
 
 
 }
