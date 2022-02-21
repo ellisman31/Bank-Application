@@ -3,10 +3,7 @@ package com.bankapplication.bankapplication.Controller;
 import com.bankapplication.bankapplication.Model.Customer;
 import com.bankapplication.bankapplication.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,12 +35,12 @@ public class CustomerController {
     }
 
     @RequestMapping(value="/api/updateCustomer", method=RequestMethod.PUT)
-    public void updateCustomer(Customer customer) {
+    public void updateCustomer(@RequestBody Customer customer) {
         customerService.updateCustomer(customer);
     }
 
     @RequestMapping(value="/api/saveCustomer", method=RequestMethod.POST)
-    public void saveCustomer(Customer customer) {
+    public void saveCustomer(@RequestBody Customer customer) {
         customerService.saveCustomer(customer);
     }
 
