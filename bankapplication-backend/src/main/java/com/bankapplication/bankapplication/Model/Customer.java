@@ -47,12 +47,4 @@ public class Customer {
         this.password = password;
     }
 
-    public Customer(String firstName, String lastName, String emailAddress, String password, BigDecimal balance, Timestamp registrationDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.password = password;
-        this.balance = balance;
-        this.registrationDate = registrationDate;
-    }
 }
