@@ -19,7 +19,7 @@ public class TransactionService {
         this.transactionJPA = transactionJPA;
     }
 
-    public void saveTransaction(Transaction transaction, Boolean successFulTransaction) {
+    public void saveTransaction(Transaction transaction, boolean successFulTransaction) {
         if (successFulTransaction) {
             transactionJPA.save(transaction);
         }
@@ -35,7 +35,7 @@ public class TransactionService {
         BigDecimal customerMoney = customer.getBalance();
         BigDecimal transactionMoney = transaction.getMoney();
         TransactionTypes transactionType = transaction.getTransActionType();
-        Boolean successFulTransaction = false;
+        boolean successFulTransaction = false;
 
         if (transactionType.equals(TransactionTypes.DEPOSIT)) {
             customer.setBalance(customerMoney.add(transactionMoney));
@@ -44,9 +44,6 @@ public class TransactionService {
             if (customerMoney.subtract(transactionMoney).compareTo(BigDecimal.ZERO) >= 0) {
                 customer.setBalance(customerMoney.subtract(transactionMoney));
                 successFulTransaction = true;
-            }
-            else {
-                successFulTransaction = false;
             }
         }
 
