@@ -1,5 +1,6 @@
 package com.bankapplication.bankapplication.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.util.*;
 @Setter
 @Entity
 @Table(name="customer", schema="public")
+@JsonIgnoreProperties(value = {"id", "password"})
 public class Customer {
 
     @Id
@@ -39,6 +41,10 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Transaction> transactions;
+
+    @OneToMany(mappedBy = "transferCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Transfer> transfers;
 
     public Customer(String firstName, String lastName, String emailAddress, String password) {
         this.firstName = firstName;
