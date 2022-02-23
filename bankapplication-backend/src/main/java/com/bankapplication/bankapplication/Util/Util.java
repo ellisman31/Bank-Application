@@ -1,12 +1,15 @@
 package com.bankapplication.bankapplication.Util;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-public class CustomerUtil {
+@Component
+public class Util {
 
-    public Timestamp registrationDate() {
+    public Timestamp currentDate() {
         Calendar cal = Calendar.getInstance();
         return new Timestamp(cal.getTimeInMillis());
     }
