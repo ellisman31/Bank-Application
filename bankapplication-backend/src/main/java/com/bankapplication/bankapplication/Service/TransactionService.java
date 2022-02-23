@@ -7,9 +7,11 @@ import com.bankapplication.bankapplication.Types.TransactionTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Service
+@Transactional
 public class TransactionService {
 
     private final TransactionJPA transactionJPA;
