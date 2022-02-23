@@ -21,9 +21,8 @@ public class TransferController {
         this.userService = userService;
     }
 
-    @RequestMapping(value="/api/transferMoney/inf{receiverEmailAddress}", method= RequestMethod.POST)
-    public void transferMoney(@RequestBody Transfer transfer,
-                              @RequestParam("receiverEmailAddress") String receiverEmailAddress) {
+    @RequestMapping(value="/api/transferMoney", method= RequestMethod.POST)
+    public void transferMoney(@RequestBody Transfer transfer) {
 
         Long transferSenderId = 0L;
 
@@ -32,7 +31,7 @@ public class TransferController {
             User authorized = userService.ownInformation(email);
             transferSenderId = authorized.getId();
             if (transferSenderId > 0) {
-                transferService.transferMoneyToUser(transfer, receiverEmailAddress, transferSenderId);
+                transferService.transferMoneyToUser(transfer, transfer.getTransferReceiverEmail(), transferSenderId);
             }
         }
     }
