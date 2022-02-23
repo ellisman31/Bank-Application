@@ -36,6 +36,8 @@ public class User {
     private BigDecimal balance;
     @Column(name="registration_date")
     private Timestamp registrationDate;
+    @Column(name="bank_account_number")
+    private String bankAccountNumber;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

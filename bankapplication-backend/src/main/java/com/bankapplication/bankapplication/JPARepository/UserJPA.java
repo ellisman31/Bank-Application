@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface UserJPA extends JpaRepository<User, Long> {
 
     User findByEmailAddress(String emailAddress);
-
+    User findByBankAccountNumber(String bankAccountNumber);
 }

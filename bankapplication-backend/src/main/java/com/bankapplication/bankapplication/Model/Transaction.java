@@ -30,9 +30,9 @@ public class Transaction {
     private User user;
 
     @Column(name = "transaction_type")
-    private TransactionTypes transActionType;
-    @Column(name = "money")
-    private BigDecimal money;
+    private TransactionTypes transactionType;
+    @Column(name = "transactionMoney")
+    private BigDecimal transactionMoney;
     @Column(name = "transactionDate")
     private Timestamp transactionDate;
 
@@ -42,8 +42,8 @@ public class Transaction {
     private List<Transfer> transferToUser;
 
     public Transaction(TransactionTypes transActionType, BigDecimal money) {
-        this.transActionType = transActionType;
-        this.money = money;
+        this.transactionType = transActionType;
+        this.transactionMoney = money;
     }
 
 }
