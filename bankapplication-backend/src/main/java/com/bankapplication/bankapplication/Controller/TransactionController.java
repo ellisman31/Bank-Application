@@ -37,7 +37,7 @@ public class TransactionController {
             if (transferSenderId > 0) {
                 Transaction newTransaction = new Transaction(TransactionTypes.valueOf(transactionType), money);
                 newTransaction.setUser(userService.getUserById(transferSenderId).get());
-                transactionService.setTransactionToTheCustomer(newTransaction);
+                transactionService.setTransactionForTheUser(newTransaction);
             }
         }
     }
