@@ -24,7 +24,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value="/api/saveTransaction/inf{transactionType}{money}", method=RequestMethod.PUT)
-    public void saveTransactionForCustomer(
+    public void doTransactionForUser(
             @RequestParam("transactionType") String transactionType,
             @RequestParam("money") BigDecimal money) {
 
