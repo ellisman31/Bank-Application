@@ -5,6 +5,8 @@ import com.bankapplication.bankapplication.Model.Transfer;
 import com.bankapplication.bankapplication.Service.UserService;
 import com.bankapplication.bankapplication.Service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +24,7 @@ public class TransferController {
     }
 
     @RequestMapping(value="/api/transferMoney", method= RequestMethod.POST)
-    public void transferMoney(@RequestBody Transfer transfer) {
+    public ResponseEntity<Transfer> transferMoney(@RequestBody Transfer transfer) {
 
         Long transferSenderId = 0L;
 
@@ -32,8 +34,13 @@ public class TransferController {
             transferSenderId = authorized.getId();
             if (transferSenderId > 0) {
                 transferService.transferMoneyToUser(transfer, transfer.getTransferReceiverEmail(), transferSenderId);
+                return ResponseEntity.status(HttpStatus.OK).body(transfer);
             }
         }
+        else {
+            ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+        return null;
     }
 
 }

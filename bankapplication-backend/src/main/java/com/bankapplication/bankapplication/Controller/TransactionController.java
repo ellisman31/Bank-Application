@@ -6,6 +6,8 @@ import com.bankapplication.bankapplication.Service.UserService;
 import com.bankapplication.bankapplication.Service.TransactionService;
 import com.bankapplication.bankapplication.Types.TransactionTypes;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +26,7 @@ public class TransactionController {
     }
 
     @RequestMapping(value="/api/doTransaction", method=RequestMethod.PUT)
-    public void doTransactionForUser(@RequestBody Transaction transaction) {
+    public ResponseEntity<Transaction> doTransactionForUser(@RequestBody Transaction transaction) {
 
         Long transferSenderId = 0L;
 
@@ -35,8 +37,13 @@ public class TransactionController {
             if (transferSenderId > 0) {
                 transaction.setUser(userService.getUserById(transferSenderId).get());
                 transactionService.setTransactionForTheUser(transaction);
+                return ResponseEntity.status(HttpStatus.OK).body(transaction);
             }
         }
+        else {
+            ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+        return null;
     }
 
 }
