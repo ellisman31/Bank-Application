@@ -10,9 +10,11 @@ import com.bankapplication.bankapplication.Types.TransactionTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Service
+@Transactional
 public class TransferService {
 
     private final TransferJPA transferJPA;
@@ -45,11 +47,11 @@ public class TransferService {
             transferSenderCustomer.setBalance(transferSenderBalance.subtract(transferMoney));
 
             transferJPA.save(transfer);
-            saveTransactionTransfer(transferSenderCustomer, transfer, transferMoney);
+            saveTransactionTransfer(transferSenderCustomer, transferMoney);
         }
     }
 
-    public void saveTransactionTransfer(Customer transferSenderCustomer, Transfer transferToCustomer, BigDecimal transferMoney) {
+    public void saveTransactionTransfer(Customer transferSenderCustomer, BigDecimal transferMoney) {
         Transaction transactionTransferType = new Transaction(TransactionTypes.TRANSFER,transferMoney);
         transactionTransferType.setCustomer(transferSenderCustomer);
         transactionJPA.save(transactionTransferType);
