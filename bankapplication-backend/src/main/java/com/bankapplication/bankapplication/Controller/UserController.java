@@ -51,7 +51,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/api/getUser/{emailAddress)}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/getUser/{emailAddress}", method=RequestMethod.GET)
     public ResponseEntity<User> getUserByEmailAddress(@PathVariable String emailAddress) {
         User user = userService.findUserByEmail(emailAddress);
         if (user == null) {
