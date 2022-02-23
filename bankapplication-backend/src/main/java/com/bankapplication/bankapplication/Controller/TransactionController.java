@@ -23,10 +23,8 @@ public class TransactionController {
         this.userService = userService;
     }
 
-    @RequestMapping(value="/api/doTransaction/inf{transactionType}{money}", method=RequestMethod.PUT)
-    public void doTransactionForUser(
-            @RequestParam("transactionType") String transactionType,
-            @RequestParam("money") BigDecimal money) {
+    @RequestMapping(value="/api/doTransaction", method=RequestMethod.PUT)
+    public void doTransactionForUser(@RequestBody Transaction transaction) {
 
         Long transferSenderId = 0L;
 
@@ -35,9 +33,8 @@ public class TransactionController {
             User authorized = userService.ownInformation(email);
             transferSenderId = authorized.getId();
             if (transferSenderId > 0) {
-                Transaction newTransaction = new Transaction(TransactionTypes.valueOf(transactionType), money);
-                newTransaction.setUser(userService.getUserById(transferSenderId).get());
-                transactionService.setTransactionForTheUser(newTransaction);
+                transaction.setUser(userService.getUserById(transferSenderId).get());
+                transactionService.setTransactionForTheUser(transaction);
             }
         }
     }

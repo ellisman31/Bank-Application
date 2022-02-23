@@ -3,6 +3,7 @@ package com.bankapplication.bankapplication.Model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,9 @@ public class Transfer {
     private BigDecimal transferMoney;
     @Column(name = "transferDate")
     private Timestamp transferDate;
+    @Column(name = "transferReceiver")
+    @JsonProperty(access= JsonProperty.Access.WRITE_ONLY)
+    private String transferReceiverEmail;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
