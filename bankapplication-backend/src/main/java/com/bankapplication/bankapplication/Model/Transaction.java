@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,10 +36,10 @@ public class Transaction {
     @Column(name = "transactionDate")
     private Timestamp transactionDate;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "transfer_id")
     @JsonBackReference(value="user-movement")
-    private Transfer transferToUser;
+    private List<Transfer> transferToUser;
 
     public Transaction(TransactionTypes transActionType, BigDecimal money) {
         this.transActionType = transActionType;

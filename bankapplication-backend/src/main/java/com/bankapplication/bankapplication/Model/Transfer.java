@@ -35,7 +35,7 @@ public class Transfer {
     @JsonBackReference
     private User transferUser;
 
-    @OneToMany(mappedBy = "transferToUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "transferToUser", cascade = CascadeType.ALL)
     @JsonManagedReference(value="user-movement")
     private List<Transaction> transactionHistory;
 
