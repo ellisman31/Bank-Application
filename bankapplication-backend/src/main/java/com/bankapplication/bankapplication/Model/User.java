@@ -2,15 +2,14 @@ package com.bankapplication.bankapplication.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
+
+import static javax.persistence.FetchType.EAGER;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +18,7 @@ import java.util.*;
 @Entity
 @Table(name="customer", schema="public")
 @JsonIgnoreProperties(value = {"id", "password"})
-public class Customer {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,19 +37,31 @@ public class Customer {
     @Column(name="registration_date")
     private Timestamp registrationDate;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Transaction> transactions;
 
-    @OneToMany(mappedBy = "transferCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "transferUser", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Transfer> transfers;
 
-    public Customer(String firstName, String lastName, String emailAddress, String password) {
+    @ManyToMany(fetch = EAGER)
+    private Set<Role> roles = new HashSet<>();
+
+    public User(String firstName, String lastName, String emailAddress, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.password = password;
     }
 
+    public User(Long id, String firstName, String lastName, String emailAddress, String password, BigDecimal balance, Timestamp registrationDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.balance = balance;
+        this.registrationDate = registrationDate;
+    }
 }

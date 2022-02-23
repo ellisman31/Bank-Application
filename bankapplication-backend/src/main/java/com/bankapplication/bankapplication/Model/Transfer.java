@@ -3,13 +3,11 @@ package com.bankapplication.bankapplication.Model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,13 +27,15 @@ public class Transfer {
     private String transferSenderName;
     @Column(name = "transferMoney")
     private BigDecimal transferMoney;
+    @Column(name = "transferDate")
+    private Timestamp transferDate;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference
-    private Customer transferCustomer;
+    private User transferUser;
 
-    @OneToMany(mappedBy = "transferToCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "transferToUser", cascade = CascadeType.ALL)
     @JsonManagedReference(value="user-movement")
     private List<Transaction> transactionHistory;
 

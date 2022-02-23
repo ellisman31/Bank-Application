@@ -3,13 +3,12 @@ package com.bankapplication.bankapplication.Model;
 import com.bankapplication.bankapplication.Types.TransactionTypes;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,17 +27,19 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference
-    private Customer customer;
+    private User user;
 
     @Column(name = "transaction_type")
     private TransactionTypes transActionType;
     @Column(name = "money")
     private BigDecimal money;
+    @Column(name = "transactionDate")
+    private Timestamp transactionDate;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "transfer_id")
     @JsonBackReference(value="user-movement")
-    private Transfer transferToCustomer;
+    private List<Transfer> transferToUser;
 
     public Transaction(TransactionTypes transActionType, BigDecimal money) {
         this.transActionType = transActionType;
