@@ -4,6 +4,7 @@ import com.bankapplication.bankapplication.JPARepository.TransactionJPA;
 import com.bankapplication.bankapplication.Model.Customer;
 import com.bankapplication.bankapplication.Model.Transaction;
 import com.bankapplication.bankapplication.Types.TransactionTypes;
+import com.bankapplication.bankapplication.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +16,17 @@ import java.math.BigDecimal;
 public class TransactionService {
 
     private final TransactionJPA transactionJPA;
+    private final Util util;
 
     @Autowired
-    public TransactionService(TransactionJPA transactionJPA) {
+    public TransactionService(TransactionJPA transactionJPA, Util util) {
         this.transactionJPA = transactionJPA;
+        this.util = util;
     }
 
     public void saveTransaction(Transaction transaction, boolean successFulTransaction) {
         if (successFulTransaction) {
+            transaction.setTransactionDate(util.currentDate());
             transactionJPA.save(transaction);
         }
     }

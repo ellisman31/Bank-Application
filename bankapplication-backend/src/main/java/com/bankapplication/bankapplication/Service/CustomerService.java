@@ -5,7 +5,7 @@ import com.bankapplication.bankapplication.JPARepository.RoleJPA;
 import com.bankapplication.bankapplication.Model.Customer;
 import com.bankapplication.bankapplication.Model.Role;
 import com.bankapplication.bankapplication.Types.RoleType;
-import com.bankapplication.bankapplication.Util.CustomerUtil;
+import com.bankapplication.bankapplication.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,7 +25,7 @@ import java.util.*;
 public class CustomerService implements UserDetailsService {
 
     private final CustomerJPA customerJPA;
-    private final CustomerUtil customerUtil = new CustomerUtil();
+    private final Util util = new Util();
     private final RoleJPA roleJPA;
     private final PasswordEncoder passwordEncoder;
 
@@ -63,8 +63,8 @@ public class CustomerService implements UserDetailsService {
     }
 
     public void saveCustomer(Customer customer) {
-        BigDecimal defaultBalance = customerUtil.defaultBalance();
-        Timestamp registrationDate = customerUtil.registrationDate();
+        BigDecimal defaultBalance = util.defaultBalance();
+        Timestamp registrationDate = util.currentDate();
         customer.setRegistrationDate(registrationDate);
         customer.setBalance(defaultBalance);
 

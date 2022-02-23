@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,6 +27,8 @@ public class Transfer {
     private String transferSenderName;
     @Column(name = "transferMoney")
     private BigDecimal transferMoney;
+    @Column(name = "transferDate")
+    private Timestamp transferDate;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

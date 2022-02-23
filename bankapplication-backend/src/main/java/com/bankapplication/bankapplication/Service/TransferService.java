@@ -7,6 +7,7 @@ import com.bankapplication.bankapplication.Model.Customer;
 import com.bankapplication.bankapplication.Model.Transaction;
 import com.bankapplication.bankapplication.Model.Transfer;
 import com.bankapplication.bankapplication.Types.TransactionTypes;
+import com.bankapplication.bankapplication.Util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +21,14 @@ public class TransferService {
     private final TransferJPA transferJPA;
     private final CustomerJPA customerJPA;
     private final TransactionJPA transactionJPA;
+    private final Util util;
 
     @Autowired
-    public TransferService(TransferJPA transferJPA, CustomerJPA customerJPA, TransactionJPA transactionJPA) {
+    public TransferService(TransferJPA transferJPA, CustomerJPA customerJPA, TransactionJPA transactionJPA, Util util) {
         this.transferJPA = transferJPA;
         this.customerJPA = customerJPA;
         this.transactionJPA = transactionJPA;
+        this.util = util;
     }
 
     public void transferMoneyToCustomer(Transfer transfer, Long receiverCustomerId, Long transferSenderId) {
@@ -52,9 +55,10 @@ public class TransferService {
     }
 
     public void saveTransactionTransfer(Customer transferSenderCustomer, BigDecimal transferMoney) {
-        Transaction transactionTransferType = new Transaction(TransactionTypes.TRANSFER,transferMoney);
-        transactionTransferType.setCustomer(transferSenderCustomer);
-        transactionJPA.save(transactionTransferType);
+        Transaction transactionTransfer = new Transaction(TransactionTypes.TRANSFER,transferMoney);
+        transactionTransfer.setCustomer(transferSenderCustomer);
+        transactionTransfer.setTransactionDate(util.currentDate());
+        transactionJPA.save(transactionTransfer);
     }
 
 }
