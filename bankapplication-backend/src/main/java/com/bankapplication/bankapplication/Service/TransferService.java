@@ -46,15 +46,16 @@ public class TransferService {
 
             String transferSenderFullName = transferSenderUser.getFirstName() + " " + transferSenderUser.getLastName();
             transfer.setTransferSenderName(transferSenderFullName);
+            transfer.setTransferDate(util.currentDate());
 
             transferSenderUser.setBalance(transferSenderBalance.subtract(transferMoney));
 
             transferJPA.save(transfer);
-            saveTransactionTransfer(transferSenderUser, transferMoney);
+            saveTransactionTransfer(transferSenderUser, transferMoney, transferReceiverUser);
         }
     }
 
-    public void saveTransactionTransfer(User transferSenderUser, BigDecimal transferMoney) {
+    public void saveTransactionTransfer(User transferSenderUser, BigDecimal transferMoney, User transferReceiverUser) {
         Transaction transactionTransfer = new Transaction(TransactionTypes.TRANSFER,transferMoney);
         transactionTransfer.setUser(transferSenderUser);
         transactionTransfer.setTransactionDate(util.currentDate());
