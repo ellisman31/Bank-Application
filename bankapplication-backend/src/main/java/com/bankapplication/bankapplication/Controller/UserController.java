@@ -2,7 +2,7 @@ package com.bankapplication.bankapplication.Controller;
 
 import com.bankapplication.bankapplication.Model.User;
 import com.bankapplication.bankapplication.Model.Role;
-import com.bankapplication.bankapplication.Model.RoleToCustomer;
+import com.bankapplication.bankapplication.Model.RoleToUser;
 import com.bankapplication.bankapplication.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/api/addNewRoleToUser", method=RequestMethod.POST)
-    public void addRoleToUser(@RequestBody RoleToCustomer roleToUser) {
+    public void addRoleToUser(@RequestBody RoleToUser roleToUser) {
         userService.addRuleToUser(roleToUser.getCustomerId(), roleToUser.getRole());
     }
 
