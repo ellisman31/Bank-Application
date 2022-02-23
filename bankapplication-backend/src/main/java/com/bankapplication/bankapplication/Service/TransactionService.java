@@ -39,8 +39,8 @@ public class TransactionService {
 
         User user = transaction.getUser();
         BigDecimal customerMoney = user.getBalance();
-        BigDecimal transactionMoney = transaction.getMoney();
-        TransactionTypes transactionType = transaction.getTransActionType();
+        BigDecimal transactionMoney = transaction.getTransactionMoney();
+        TransactionTypes transactionType = transaction.getTransactionType();
         boolean successFulTransaction = false;
 
         if (transactionType.equals(TransactionTypes.DEPOSIT)) {

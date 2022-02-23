@@ -113,4 +113,7 @@ public class UserService implements UserDetailsService {
         roleJPA.save(role);
     }
 
+    public User findUserByEmail(String emailAddress) {
+        return userJPA.findByEmailAddress(emailAddress);
+    }
 }
