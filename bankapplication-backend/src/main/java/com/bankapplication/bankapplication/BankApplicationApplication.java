@@ -39,6 +39,7 @@ public class BankApplicationApplication {
 			userService.saveUser(new User(2L, "Chris", "May", "chrismay@gmail.com",
 					"1234", BigDecimal.ZERO, util.currentDate()));
 
+			userService.addRuleToUser(1L, RoleType.ADMIN);
 		};
 	}
 
