@@ -51,11 +51,11 @@ public class TransferService {
             transferSenderUser.setBalance(transferSenderBalance.subtract(transferMoney));
 
             transferJPA.save(transfer);
-            saveTransactionTransfer(transferSenderUser, transferMoney, transferReceiverUser);
+            saveTransactionTransfer(transferSenderUser, transferMoney);
         }
     }
 
-    public void saveTransactionTransfer(User transferSenderUser, BigDecimal transferMoney, User transferReceiverUser) {
+    public void saveTransactionTransfer(User transferSenderUser, BigDecimal transferMoney) {
         Transaction transactionTransfer = new Transaction(TransactionTypes.TRANSFER,transferMoney);
         transactionTransfer.setUser(transferSenderUser);
         transactionTransfer.setTransactionDate(util.currentDate());
