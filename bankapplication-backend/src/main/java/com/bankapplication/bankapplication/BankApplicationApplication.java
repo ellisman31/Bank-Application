@@ -4,7 +4,7 @@ import com.bankapplication.bankapplication.Model.Customer;
 import com.bankapplication.bankapplication.Model.Role;
 import com.bankapplication.bankapplication.Service.CustomerService;
 import com.bankapplication.bankapplication.Types.RoleType;
-import com.bankapplication.bankapplication.Util.CustomerUtil;
+import com.bankapplication.bankapplication.Util.Util;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,11 +33,11 @@ public class BankApplicationApplication {
 			customerService.saveRole(new Role(1L, RoleType.USER));
 			customerService.saveRole(new Role(2L, RoleType.ADMIN));
 
-			CustomerUtil customerUtil = new CustomerUtil();
+			Util util = new Util();
 			customerService.saveCustomer(new Customer(1L, "Oakley", "Burns", "oakleyburns@gmail.com",
-					"1234", BigDecimal.ZERO, customerUtil.registrationDate()));
+					"1234", BigDecimal.ZERO, util.currentDate()));
 			customerService.saveCustomer(new Customer(2L, "Chris", "May", "chrismay@gmail.com",
-					"1234", BigDecimal.ZERO, customerUtil.registrationDate()));
+					"1234", BigDecimal.ZERO, util.currentDate()));
 
 		};
 	}
