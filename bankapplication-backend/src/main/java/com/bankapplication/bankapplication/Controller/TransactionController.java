@@ -23,7 +23,7 @@ public class TransactionController {
         this.userService = userService;
     }
 
-    @RequestMapping(value="/api/saveTransaction/inf{transactionType}{money}", method=RequestMethod.PUT)
+    @RequestMapping(value="/api/doTransaction/inf{transactionType}{money}", method=RequestMethod.PUT)
     public void doTransactionForUser(
             @RequestParam("transactionType") String transactionType,
             @RequestParam("money") BigDecimal money) {
