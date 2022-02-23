@@ -63,7 +63,7 @@ public class UserController {
         userService.updateUser(user);
     }
 
-    @RequestMapping(value="/api/registration", method=RequestMethod.POST)
+    @RequestMapping(value="/auth/api/registration", method=RequestMethod.POST)
     public void registerUser(@RequestBody User user) {
         userService.saveUser(user);
     }
