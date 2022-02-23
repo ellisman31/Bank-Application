@@ -58,14 +58,13 @@ public class UserController {
         userService.deleteUser(userId);
     }
 
-    @RequestMapping(value="/api/updateCustomer", method=RequestMethod.PUT)
+    @RequestMapping(value="/api/updateUser", method=RequestMethod.PUT)
     public void updateUser(@RequestBody User user) {
         userService.updateUser(user);
     }
 
     @RequestMapping(value="/api/registration", method=RequestMethod.POST)
     public void registerUser(@RequestBody User user) {
-        System.out.println(user.getEmailAddress() + " " + user.getId() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword());
         userService.saveUser(user);
     }
 
