@@ -55,7 +55,6 @@ public class TransferService {
                 saveTransactionTransfer(transferSenderUser, transferMoney);
             }
         }
-
     }
 
     public void saveTransactionTransfer(User transferSenderUser, BigDecimal transferMoney) {
