@@ -2,6 +2,7 @@ package com.bankapplication.bankapplication.Security;
 
 import com.bankapplication.bankapplication.Security.Filter.AuthenticationFilter;
 import com.bankapplication.bankapplication.Security.Filter.AuthorizationFilter;
+import com.bankapplication.bankapplication.Types.RoleType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,15 +33,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManagerBean());
-        authenticationFilter.setFilterProcessesUrl("/api/login");
+        authenticationFilter.setFilterProcessesUrl("/auth/api/login");
+
+        String adminRole = "ROLE_"+RoleType.ADMIN.name();
+        String userRole = "ROLE_"+RoleType.USER.name();
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeHttpRequests().antMatchers("/api/login", "/api/registration").permitAll();
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/ownBalance", "/api/ownInformation", "/api/transferMoney/**", "/api/doTransaction/**")
-                .hasAnyAuthority("ROLE_USER","ROLE_ADMIN");
+        http.authorizeHttpRequests().antMatchers("/auth/api/login", "/auth/api/registration").permitAll()
+                .and().authorizeRequests().antMatchers(HttpMethod.GET,"/api/ownBalance", "/api/ownInformation").hasAnyAuthority(userRole,adminRole)
+                .and().authorizeRequests().antMatchers(HttpMethod.POST,"/api/transferMoney/**").hasAnyAuthority(userRole,adminRole)
+                .and().authorizeRequests().antMatchers(HttpMethod.PUT,"/api/doTransaction/**").hasAnyAuthority(userRole,adminRole)
+                .and().authorizeRequests().antMatchers("/api/**").hasAnyAuthority(adminRole);
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(authenticationFilter);
         http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

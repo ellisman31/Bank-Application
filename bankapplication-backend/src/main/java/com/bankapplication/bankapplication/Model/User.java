@@ -1,7 +1,7 @@
 package com.bankapplication.bankapplication.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +17,6 @@ import static javax.persistence.FetchType.EAGER;
 @Setter
 @Entity
 @Table(name="customer", schema="public")
-@JsonIgnoreProperties(value = {"id", "password"})
 public class User {
 
     @Id
@@ -31,6 +30,7 @@ public class User {
     @Column(name = "email")
     private String emailAddress;
     @Column(name = "password")
+    @JsonProperty(access= JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Column(name = "balance")
     private BigDecimal balance;
@@ -64,4 +64,5 @@ public class User {
         this.balance = balance;
         this.registrationDate = registrationDate;
     }
+
 }

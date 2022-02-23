@@ -58,22 +58,22 @@ public class UserController {
         userService.deleteUser(userId);
     }
 
-    @RequestMapping(value="/api/updateCustomer", method=RequestMethod.PUT)
+    @RequestMapping(value="/api/updateUser", method=RequestMethod.PUT)
     public void updateUser(@RequestBody User user) {
         userService.updateUser(user);
     }
 
-    @RequestMapping(value="/api/registration", method=RequestMethod.POST)
+    @RequestMapping(value="/auth/api/registration", method=RequestMethod.POST)
     public void registerUser(@RequestBody User user) {
         userService.saveUser(user);
     }
 
-    @RequestMapping(value="/api/customerBalance/{userId}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/userBalance/{userId}", method=RequestMethod.GET)
     public BigDecimal userBalance(@PathVariable Long userId) {
         return userService.userBalance(userId);
     }
 
-    @RequestMapping(value="/api/customer/role", method=RequestMethod.POST)
+    @RequestMapping(value="/api/user/role", method=RequestMethod.POST)
     public void saveUserRole(@RequestBody Role role) {
         userService.saveRole(role);
     }
