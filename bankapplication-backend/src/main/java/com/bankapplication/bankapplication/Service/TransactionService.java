@@ -35,7 +35,7 @@ public class TransactionService {
         transactionJPA.deleteById(transactionId);
     }
 
-    public void setTransactionToTheCustomer(Transaction transaction) {
+    public void setTransactionForTheUser(Transaction transaction) {
 
         User user = transaction.getUser();
         BigDecimal customerMoney = user.getBalance();

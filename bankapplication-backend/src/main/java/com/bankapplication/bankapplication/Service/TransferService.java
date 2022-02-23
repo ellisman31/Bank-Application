@@ -31,27 +31,29 @@ public class TransferService {
         this.util = util;
     }
 
-    public void transferMoneyToUser(Transfer transfer, Long receiverUserId, Long transferSenderId) {
+    public void transferMoneyToUser(Transfer transfer, String emailAddress, Long transferSenderId) {
 
-        User transferReceiverUser = userJPA.getById(receiverUserId);
+        User transferReceiverUser = userJPA.findByEmailAddress(emailAddress);
         User transferSenderUser = userJPA.getById(transferSenderId);
 
-        BigDecimal transferSenderBalance = transferSenderUser.getBalance();
-        BigDecimal transferReceiverBalance = transferReceiverUser.getBalance();
-        BigDecimal transferMoney = transfer.getTransferMoney();
+        if (!transferReceiverUser.getId().equals(transferSenderId)) {
+            BigDecimal transferSenderBalance = transferSenderUser.getBalance();
+            BigDecimal transferReceiverBalance = transferReceiverUser.getBalance();
+            BigDecimal transferMoney = transfer.getTransferMoney();
 
-        if (transferSenderBalance.subtract(transferMoney).compareTo(BigDecimal.ZERO) >= 0) {
-            transferReceiverUser.setBalance(transferMoney.add(transferReceiverBalance));
-            transfer.setTransferUser(transferReceiverUser);
+            if (transferSenderBalance.subtract(transferMoney).compareTo(BigDecimal.ZERO) >= 0) {
+                transferReceiverUser.setBalance(transferMoney.add(transferReceiverBalance));
+                transfer.setTransferUser(transferReceiverUser);
 
-            String transferSenderFullName = transferSenderUser.getFirstName() + " " + transferSenderUser.getLastName();
-            transfer.setTransferSenderName(transferSenderFullName);
-            transfer.setTransferDate(util.currentDate());
+                String transferSenderFullName = transferSenderUser.getFirstName() + " " + transferSenderUser.getLastName();
+                transfer.setTransferSenderName(transferSenderFullName);
+                transfer.setTransferDate(util.currentDate());
 
-            transferSenderUser.setBalance(transferSenderBalance.subtract(transferMoney));
+                transferSenderUser.setBalance(transferSenderBalance.subtract(transferMoney));
 
-            transferJPA.save(transfer);
-            saveTransactionTransfer(transferSenderUser, transferMoney);
+                transferJPA.save(transfer);
+                saveTransactionTransfer(transferSenderUser, transferMoney);
+            }
         }
     }
 
