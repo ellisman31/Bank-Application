@@ -67,9 +67,10 @@ public class UserService implements UserDetailsService {
         if(checkRegisteredUser(user.getEmailAddress())) {
             BigDecimal defaultBalance = util.defaultBalance();
             Timestamp registrationDate = util.currentDate();
+            String bankAccountNumber = util.getBankAccountNumber(this);
             user.setRegistrationDate(registrationDate);
             user.setBalance(defaultBalance);
-
+            user.setBankAccountNumber(bankAccountNumber);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
 
             userJPA.save(user);
@@ -115,5 +116,9 @@ public class UserService implements UserDetailsService {
 
     public User findUserByEmail(String emailAddress) {
         return userJPA.findByEmailAddress(emailAddress);
+    }
+
+    public User findUserBankAccountNumber(String bankAccountNumber) {
+        return userJPA.findByBankAccountNumber(bankAccountNumber);
     }
 }
