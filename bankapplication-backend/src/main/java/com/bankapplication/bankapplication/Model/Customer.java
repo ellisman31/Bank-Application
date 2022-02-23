@@ -2,15 +2,14 @@ package com.bankapplication.bankapplication.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
+
+import static javax.persistence.FetchType.EAGER;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -46,6 +45,9 @@ public class Customer {
     @JsonManagedReference
     private List<Transfer> transfers;
 
+    @ManyToMany(fetch = EAGER)
+    private Set<Role> roles = new HashSet<>();
+
     public Customer(String firstName, String lastName, String emailAddress, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,4 +55,13 @@ public class Customer {
         this.password = password;
     }
 
+    public Customer(Long id, String firstName, String lastName, String emailAddress, String password, BigDecimal balance, Timestamp registrationDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.balance = balance;
+        this.registrationDate = registrationDate;
+    }
 }
