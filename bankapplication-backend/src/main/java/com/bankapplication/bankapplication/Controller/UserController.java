@@ -65,15 +65,16 @@ public class UserController {
 
     @RequestMapping(value="/api/registration", method=RequestMethod.POST)
     public void registerUser(@RequestBody User user) {
+        System.out.println(user.getEmailAddress() + " " + user.getId() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getPassword());
         userService.saveUser(user);
     }
 
-    @RequestMapping(value="/api/customerBalance/{userId}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/userBalance/{userId}", method=RequestMethod.GET)
     public BigDecimal userBalance(@PathVariable Long userId) {
         return userService.userBalance(userId);
     }
 
-    @RequestMapping(value="/api/customer/role", method=RequestMethod.POST)
+    @RequestMapping(value="/api/user/role", method=RequestMethod.POST)
     public void saveUserRole(@RequestBody Role role) {
         userService.saveRole(role);
     }
