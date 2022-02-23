@@ -18,7 +18,7 @@ import static javax.persistence.FetchType.EAGER;
 @Entity
 @Table(name="customer", schema="public")
 @JsonIgnoreProperties(value = {"id", "password"})
-public class Customer {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,25 +37,25 @@ public class Customer {
     @Column(name="registration_date")
     private Timestamp registrationDate;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Transaction> transactions;
 
-    @OneToMany(mappedBy = "transferCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "transferUser", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Transfer> transfers;
 
     @ManyToMany(fetch = EAGER)
     private Set<Role> roles = new HashSet<>();
 
-    public Customer(String firstName, String lastName, String emailAddress, String password) {
+    public User(String firstName, String lastName, String emailAddress, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.password = password;
     }
 
-    public Customer(Long id, String firstName, String lastName, String emailAddress, String password, BigDecimal balance, Timestamp registrationDate) {
+    public User(Long id, String firstName, String lastName, String emailAddress, String password, BigDecimal balance, Timestamp registrationDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

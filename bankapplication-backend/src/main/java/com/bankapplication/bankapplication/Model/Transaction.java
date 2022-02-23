@@ -26,7 +26,7 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference
-    private Customer customer;
+    private User user;
 
     @Column(name = "transaction_type")
     private TransactionTypes transActionType;
@@ -38,7 +38,7 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "transfer_id")
     @JsonBackReference(value="user-movement")
-    private Transfer transferToCustomer;
+    private Transfer transferToUser;
 
     public Transaction(TransactionTypes transActionType, BigDecimal money) {
         this.transActionType = transActionType;

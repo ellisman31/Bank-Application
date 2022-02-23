@@ -33,9 +33,9 @@ public class Transfer {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference
-    private Customer transferCustomer;
+    private User transferUser;
 
-    @OneToMany(mappedBy = "transferToCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "transferToUser", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="user-movement")
     private List<Transaction> transactionHistory;
 

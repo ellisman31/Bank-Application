@@ -1,8 +1,8 @@
 package com.bankapplication.bankapplication;
 
-import com.bankapplication.bankapplication.Model.Customer;
+import com.bankapplication.bankapplication.Model.User;
 import com.bankapplication.bankapplication.Model.Role;
-import com.bankapplication.bankapplication.Service.CustomerService;
+import com.bankapplication.bankapplication.Service.UserService;
 import com.bankapplication.bankapplication.Types.RoleType;
 import com.bankapplication.bankapplication.Util.Util;
 import org.springframework.boot.CommandLineRunner;
@@ -27,16 +27,16 @@ public class BankApplicationApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(CustomerService customerService) {
+	CommandLineRunner run(UserService userService) {
 		return args -> {
 
-			customerService.saveRole(new Role(1L, RoleType.USER));
-			customerService.saveRole(new Role(2L, RoleType.ADMIN));
+			userService.saveRole(new Role(1L, RoleType.USER));
+			userService.saveRole(new Role(2L, RoleType.ADMIN));
 
 			Util util = new Util();
-			customerService.saveCustomer(new Customer(1L, "Oakley", "Burns", "oakleyburns@gmail.com",
+			userService.saveUser(new User(1L, "Oakley", "Burns", "oakleyburns@gmail.com",
 					"1234", BigDecimal.ZERO, util.currentDate()));
-			customerService.saveCustomer(new Customer(2L, "Chris", "May", "chrismay@gmail.com",
+			userService.saveUser(new User(2L, "Chris", "May", "chrismay@gmail.com",
 					"1234", BigDecimal.ZERO, util.currentDate()));
 
 		};
