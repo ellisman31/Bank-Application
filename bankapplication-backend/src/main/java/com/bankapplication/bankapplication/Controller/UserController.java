@@ -31,9 +31,31 @@ public class UserController {
     }
 
     @RequestMapping(value="/api/getUser/{userId}", method=RequestMethod.GET)
-    public ResponseEntity<Optional<User>> getUser(@PathVariable Long userId) {
+    public ResponseEntity<Optional<User>> getUserById(@PathVariable Long userId) {
         if (userService.getUserById(userId).isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(userId));
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+    }
+
+    @RequestMapping(value="/api/getUser/{bankAccountNumber}", method=RequestMethod.GET)
+    public ResponseEntity<User> getUserByBankAccountNumber(@PathVariable String bankAccountNumber) {
+        User user = userService.findUserBankAccountNumber(bankAccountNumber);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+    }
+
+    @RequestMapping(value="/api/getUser/{emailAddress)}", method=RequestMethod.GET)
+    public ResponseEntity<User> getUserByEmailAddress(@PathVariable String emailAddress) {
+        User user = userService.findUserByEmail(emailAddress);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.OK).body(user);
         }
         else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
