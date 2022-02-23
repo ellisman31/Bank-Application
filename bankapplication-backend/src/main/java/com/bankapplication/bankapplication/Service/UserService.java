@@ -63,15 +63,24 @@ public class UserService implements UserDetailsService {
     }
 
     public void saveUser(User user) {
-        BigDecimal defaultBalance = util.defaultBalance();
-        Timestamp registrationDate = util.currentDate();
-        user.setRegistrationDate(registrationDate);
-        user.setBalance(defaultBalance);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if(checkRegisteredUser(user.getEmailAddress())) {
+            BigDecimal defaultBalance = util.defaultBalance();
+            Timestamp registrationDate = util.currentDate();
+            user.setRegistrationDate(registrationDate);
+            user.setBalance(defaultBalance);
 
-        userJPA.save(user);
-        addRuleToUser(user.getId(), RoleType.USER);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+            userJPA.save(user);
+            addRuleToUser(user.getId(), RoleType.USER);
+        }
+
+    }
+
+    public boolean checkRegisteredUser(String email) {
+        User user = userJPA.findByEmailAddress(email);
+        return user == null;
     }
 
     public void addRuleToUser(Long userIdId, RoleType roleName) {
