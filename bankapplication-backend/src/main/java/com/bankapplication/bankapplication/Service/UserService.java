@@ -51,7 +51,7 @@ public class UserService implements UserDetailsService {
         });
 
         return new org.springframework.security.core.userdetails.User(user.getEmailAddress(),
-                user.getPassword(), authorities);
+                user.getUserPassword(), authorities);
     }
 
     public List<User> getAllUser() {
@@ -70,7 +70,7 @@ public class UserService implements UserDetailsService {
             user.setRegistrationDate(registrationDate);
             user.setBalance(defaultBalance);
 
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
 
             userJPA.save(user);
             addRuleToUser(user.getId(), RoleType.USER);

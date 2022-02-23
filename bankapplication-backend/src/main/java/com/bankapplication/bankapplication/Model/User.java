@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.EAGER;
 @Setter
 @Entity
 @Table(name="customer", schema="public")
-@JsonIgnoreProperties(value = {"id", "password"})
+@JsonIgnoreProperties(value = {"id", "userPassword"})
 public class User {
 
     @Id
@@ -30,8 +30,8 @@ public class User {
     private String lastName;
     @Column(name = "email")
     private String emailAddress;
-    @Column(name = "password")
-    private String password;
+    @Column(name = "user_password")
+    private String userPassword;
     @Column(name = "balance")
     private BigDecimal balance;
     @Column(name="registration_date")
@@ -52,7 +52,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.password = password;
+        this.userPassword = password;
     }
 
     public User(Long id, String firstName, String lastName, String emailAddress, String password, BigDecimal balance, Timestamp registrationDate) {
@@ -60,7 +60,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
-        this.password = password;
+        this.userPassword = password;
         this.balance = balance;
         this.registrationDate = registrationDate;
     }
