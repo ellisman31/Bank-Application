@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-
 @RestController
 public class TransactionController {
 
@@ -25,8 +23,8 @@ public class TransactionController {
         this.userService = userService;
     }
 
-    @RequestMapping(value="/api/doTransaction", method=RequestMethod.PUT)
-    public ResponseEntity<Transaction> doTransactionForUser(@RequestBody Transaction transaction) {
+    @RequestMapping(value="/api/doTransaction{transactionType}", method=RequestMethod.PUT)
+    public ResponseEntity<Transaction> doTransactionForUser(@RequestBody Transaction transaction, @RequestParam("transactionType") String transactionType) {
 
         Long transferSenderId = 0L;
 
@@ -36,6 +34,8 @@ public class TransactionController {
             transferSenderId = authorized.getId();
             if (transferSenderId > 0) {
                 transaction.setUser(userService.getUserById(transferSenderId).get());
+                String capitalizeTransactionType = transactionType.toUpperCase();
+                transaction.setTransactionType(TransactionTypes.valueOf(capitalizeTransactionType));
                 transactionService.setTransactionForTheUser(transaction);
                 return ResponseEntity.status(HttpStatus.OK).body(transaction);
             }
