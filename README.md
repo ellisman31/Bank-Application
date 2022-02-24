@@ -46,7 +46,3 @@ After successful login you will receive an **Access Token**. With the access tok
   - **To use your access token you have to provide it e.g. in Postman at the Authorization panel and choose Bearer token and paste your access token. (The token will expire so be sure if the current access token is alive)** 
  
 ![image](https://user-images.githubusercontent.com/73363394/155432800-4d6621c2-72a0-4c20-bd22-869d02f032b9.png)
-
-  - **Important note for transaction:**
-    - **If you would like to do transaction be sure the transactionType is all capital!**
-
