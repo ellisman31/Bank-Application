@@ -32,7 +32,12 @@ You can find all the **_API calls_** in the **_Controller_** folder.
 > I would recommend to use **_Postman_** (Website for Postman: https://www.postman.com/)
 
 There are two users available to test out the functions. The users can be find on ```localhost:8080/h2```.
+
+![image](https://user-images.githubusercontent.com/73363394/155433512-3ca0cfdc-aa5d-4682-be17-c3f17938899c.png)
+
 **The configuration for H2** is available in the **_application.properties at the resource folder_**.  
+
+![image](https://user-images.githubusercontent.com/73363394/155433606-573ea133-0ac2-43c1-ade7-4e19cd688b54.png)
 
 ## Login
 
