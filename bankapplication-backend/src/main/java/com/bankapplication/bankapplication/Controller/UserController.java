@@ -30,7 +30,7 @@ public class UserController {
         return userService.getAllUser();
     }
 
-    @RequestMapping(value="/api/getUser/{userId}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/getUserById/{userId}", method=RequestMethod.GET)
     public ResponseEntity<Optional<User>> getUserById(@PathVariable Long userId) {
         if (userService.getUserById(userId).isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(userId));
@@ -40,7 +40,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/api/getUser/{bankAccountNumber}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/getUserByBankAccountNumber/{bankAccountNumber}", method=RequestMethod.GET)
     public ResponseEntity<User> getUserByBankAccountNumber(@PathVariable String bankAccountNumber) {
         User user = userService.findUserBankAccountNumber(bankAccountNumber);
         if (user == null) {
@@ -51,7 +51,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/api/getUser/{emailAddress}", method=RequestMethod.GET)
+    @RequestMapping(value="/api/getUserByEmail/{emailAddress}", method=RequestMethod.GET)
     public ResponseEntity<User> getUserByEmailAddress(@PathVariable String emailAddress) {
         User user = userService.findUserByEmail(emailAddress);
         if (user == null) {
