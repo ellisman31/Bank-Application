@@ -2,6 +2,7 @@ package com.bankapplication.bankapplication.Security.Filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -46,6 +51,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                         user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .sign(algorithm);
 
-        response.setHeader("access_token", accessToken);
+        response.setContentType(APPLICATION_JSON_VALUE);
+        Map<String, String> tokens= new HashMap<>();
+        tokens.put("Access Token", accessToken);
+        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }
